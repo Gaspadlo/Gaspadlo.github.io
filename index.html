@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Git - Gaspadlo</title>
+    <link rel="stylesheet" type="text/css" href="css/normalizer.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.min.css"/>
+    <style id="customr"></style>
+    <script>
+        var lL, noBubbles = 10, speed = 3000;
+        function reverseRand() {
+            if (Math.random() > .5)return "reverse";
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+            lL = document.querySelector(".liquidLoader");
+            var prepBubbles = "";
+            for (var i = 0; i < noBubbles; i++)
+                prepBubbles += "<div style='" +
+                    "left:" + (70 - (40 * Math.random()) ) + "%;" +
+                    "top:" + (70 - (40 * Math.random()) ) + "%;" +
+                    "animation :rotate " + (speed - (300 * Math.random())) + "ms linear infinite " + reverseRand() + ";'></div>";
+            lL.innerHTML = prepBubbles;
+        });
+    </script>
+</head>
+<body>
+<div class="liquidLoader"></div>
+</body>
+</html>
