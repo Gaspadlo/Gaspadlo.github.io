@@ -7,20 +7,49 @@
     <link rel="stylesheet" type="text/css" href="css/style.min.css"/>
     <style id="customr"></style>
     <script>
-        var lL, noBubbles = 10, speed = 3000;
-        function reverseRand() {
-            if (Math.random() > .5)return "reverse";
-        }
+        var noBubbles = 20, speed = 3000, speedJitter = 1000, Bubbles;
+
         document.addEventListener("DOMContentLoaded", function () {
-            lL = document.querySelector(".liquidLoader");
-            var prepBubbles = "";
-            for (var i = 0; i < noBubbles; i++)
-                prepBubbles += "<div style='" +
-                    "left:" + (70 - (40 * Math.random()) ) + "%;" +
-                    "top:" + (70 - (40 * Math.random()) ) + "%;" +
-                    "animation :rotate " + (speed - (300 * Math.random())) + "ms linear infinite " + reverseRand() + ";'></div>";
-            lL.innerHTML = prepBubbles;
+            while (noBubbles--) {
+                setTimeout(spawnNewBubble, 100 * noBubbles);
+            }
+            setInterval(function () {
+                Bubbles = document.querySelectorAll(".liquidLoader div");
+                Bubbles[0].classList.remove("spawn");
+                setTimeout(function () {
+                    Bubbles[0].remove();
+                    spawnNewBubble();
+                }, 500);
+            }, 2000);
         });
+
+        /////////////////////////////////////////////////////////////////////////
+        //  Functions
+        /////////////////////////////////////////////////////////////////////////
+        function spawnNewBubble() {
+            appendHtml(document.querySelector(".liquidLoader"), "<div style='" +
+                "left:" + (60 - (20 * Math.random()) ).toFixed(0) + "%;" +
+                "top:" + (60 - (20 * Math.random()) ).toFixed(0) + "%;" +
+                "animation:rotate " + ((speed + (speedJitter / 2)) - (speedJitter * Math.random())) + "ms linear infinite " + reverseRand() + ";'></div>");
+            Bubbles = document.querySelectorAll(".liquidLoader div");
+            setTimeout(function () {
+                Bubbles[Bubbles.length - 1].classList.add("spawn");
+            }, 10);
+        }
+
+        function appendHtml(el, str) {
+            var div = document.createElement('div');
+            div.innerHTML = str;
+            while (div.children.length > 0) {
+                el.appendChild(div.children[0]);
+            }
+        }
+
+        function reverseRand() {
+            if (Math.random() > .5)
+                return "reverse";
+            return "";
+        }
     </script>
 </head>
 <body>
