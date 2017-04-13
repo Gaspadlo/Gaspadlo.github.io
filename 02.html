@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Git - Gaspadlo</title>
+    <link rel="stylesheet" type="text/css" href="css/normalizer.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/02.min.css"/>
+    <style id="customr"></style>
+    <script>
+        var noElems = 27, width = (100 / noElems).toFixed(2), rotate = (360 / noElems).toFixed(2), speed = 5000, Elem;
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelector(".scene").setAttribute("style", "animation:rotate " + speed + "ms linear infinite");
+            spawnElem();
+        });
+
+        /////////////////////////////////////////////////////////////////////////
+        //  Functions
+        /////////////////////////////////////////////////////////////////////////
+        function spawnElem() {
+            setTimeout(function () {
+                appendHtml(document.querySelector(".scene"), "<div style='" +
+                    "width:" + width + "%;" +
+                    "left:" + (50 - width / 2) + "%;" +
+                    "transform:rotateY(" + (rotate * noElems) + "deg) translate3D(0,0,500px)'></div>");
+                Elem = document.querySelectorAll(".scene div");
+                setTimeout(function () {
+                    Elem[Elem.length - 1].classList.add("spawn");
+                }, 5);
+                if (noElems-- !== 0) spawnElem();
+            }, 10 * (noElems + 1));
+        }
+
+        function appendHtml(el, str) {
+            var div = document.createElement('div');
+            div.innerHTML = str;
+            while (div.children.length > 0) {
+                el.appendChild(div.children[0]);
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="scene"></div>
+</body>
+</html>

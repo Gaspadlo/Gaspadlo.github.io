@@ -4,21 +4,21 @@
     <meta charset="UTF-8">
     <title>Git - Gaspadlo</title>
     <link rel="stylesheet" type="text/css" href="css/normalizer.min.css"/>
-    <link rel="stylesheet" type="text/css" href="css/style.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/01.min.css"/>
     <style id="customr"></style>
     <script>
-        var noBubbles = 20, speed = 3000, speedJitter = 1000, Bubbles;
+        var noElements = 20, speed = 3000, speedJitter = 1000, Element;
 
         document.addEventListener("DOMContentLoaded", function () {
-            while (noBubbles--) {
-                setTimeout(spawnNewBubble, 100 * noBubbles);
+            while (noElements--) {
+                setTimeout(spawnElement, 100 * noElements);
             }
             setInterval(function () {
-                Bubbles = document.querySelectorAll(".liquidLoader div");
-                Bubbles[0].classList.remove("spawn");
+                Element = document.querySelectorAll(".scene div");
+                Element[0].classList.remove("spawn");
                 setTimeout(function () {
-                    Bubbles[0].remove();
-                    spawnNewBubble();
+                    Element[0].remove();
+                    spawnElement();
                 }, 500);
             }, 2000);
         });
@@ -26,12 +26,12 @@
         /////////////////////////////////////////////////////////////////////////
         //  Functions
         /////////////////////////////////////////////////////////////////////////
-        function spawnNewBubble() {
-            appendHtml(document.querySelector(".liquidLoader"), "<div style='" +
+        function spawnElement() {
+            appendHtml(document.querySelector(".scene"), "<div style='" +
                 "left:" + (60 - (20 * Math.random()) ).toFixed(0) + "%;" +
                 "top:" + (60 - (20 * Math.random()) ).toFixed(0) + "%;" +
                 "animation:rotate " + ((speed + (speedJitter / 2)) - (speedJitter * Math.random())) + "ms linear infinite " + reverseRand() + ";'></div>");
-            Bubbles = document.querySelectorAll(".liquidLoader div");
+            Bubbles = document.querySelectorAll(".scene div");
             setTimeout(function () {
                 Bubbles[Bubbles.length - 1].classList.add("spawn");
             }, 25);
@@ -53,6 +53,6 @@
     </script>
 </head>
 <body>
-<div class="liquidLoader"></div>
+<div class="scene"></div>
 </body>
 </html>
